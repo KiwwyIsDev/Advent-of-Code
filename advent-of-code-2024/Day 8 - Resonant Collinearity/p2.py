@@ -21,14 +21,19 @@ def get_antinode(a, b):
     rx1, ry1 = a
     rx2, ry2 = b
 
-    x1, y1 = rx2 - rx1, ry1 - (ry2 - ry1)
-    x2, y2 = rx2 + (rx2 - rx1), ry2 + (ry2 - ry1)
+    dx, dy = rx2 - rx1, ry2 - ry1
+    
 
-    if bound(x1, y1):
-        yield x1, y1
-    if bound(x2, y2):
-        yield x2, y2
-
+    x, y = rx1, ry1
+    while bound(x + dx, y + dy):
+        yield x + dx, y + dy
+        x, y = x + dx, y + dy
+    
+    x, y = rx2, ry2
+    while bound(x - dx, y - dy):
+        yield x - dx, y - dy
+        x, y = x - dx, y - dy
+        
 
 print(antenna)
 antinode = set()
